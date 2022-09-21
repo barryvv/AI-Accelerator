@@ -1,0 +1,37 @@
+// apt-get install graphviz
+// dot -Tpdf lab3.dot > lab3.pdf
+digraph lab3 {
+  splines=ortho
+  edge [minlen=4,penwidth=2.5];
+  node [fixedsize=true, width=1.5, height=1.5, shape = square, style="filled",
+       fillcolor="#F9706B90", fontsize=21]; PE00 PE01 PE10 PE11;
+  node [fixedsize=true, width=1.5, height=1.5, shape = square, style="filled",
+       fillcolor="#D6DBB4", fontsize=21]; Z;
+  node [fixedsize=true, width=1.5, height=1.5, shape = square, style="filled",
+       fillcolor="#99999999",color="#00000000", penwidth=2.5, fontsize=21]; A0 A1 B0 B1;
+  // layout hints
+  // connections
+  Z [label="Control"]; // dummy node
+  PE00 [label="A[0]B[0]"];
+  PE01 [label="A[0]B[1]"];
+  PE10 [label="A[1]B[0]"];
+  PE11 [label="A[1]B[1]"];
+  A0 -> PE00 [label = "A[0]" ];
+  A1 -> PE10 [label = "A[1]" ];
+  B0 -> PE00 [label = "B[0]" ];
+  B1 -> PE01 [label = "B[1]" ];
+  PE00 -> PE01 [ label = "a00" ];
+  PE00 -> PE10 [ label = "b00" ];
+  PE01 -> PE11 [ label = "b01" ];
+  PE10 -> PE11 [ label = "a10" ];
+  Z -> PE00 [label="inith[0][0]\ninitv[0][0]", color="red"];
+  //Z -> PE00 [label="inith[0][0]", color="red"];
+  //Z -> PE00 [label="initv[0][0]", color="red"];
+  PE00 -> PE01 [ label = "j+1", color="red" ];
+  PE00 -> PE10 [ label = "i+1", color="red" ];
+  PE10 -> PE11 [ label = "j+1", color="red" ];
+  PE01 -> PE11 [ label = "i+1", color="red" ];
+  {rank=same; A0 -> PE00 -> PE01 [style=invis,minlen=4]}
+  {rank=same; A1 -> PE10 -> PE11 [style=invis,minlen=4]}
+  {rank=same; Z -> B0 -> B1 [style=invis]}
+}
